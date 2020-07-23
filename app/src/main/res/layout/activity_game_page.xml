@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GamePage"
+    android:orientation="vertical"
+    android:background="@color/main_bg"
+    android:paddingLeft="65dp"
+    android:paddingRight="65dp"
+    android:paddingBottom="10dp">
+
+
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp">
+
+        <TextView
+            android:id="@+id/stage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_bold"
+            android:text="STAGE 1"
+            android:textColor="@color/stage_clr"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/apples_eaten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:text="Total apples eaten : 0"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:fontFamily="@font/roboto" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="45dp"
+        android:background="@color/main_bg"
+        >
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="190dp"
+            android:layout_height="205dp"
+            app:cardElevation="0dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="0dp"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:id="@+id/dyno_image"
+                tools:ignore = "ContentDescription"
+                android:src = "@drawable/dyno_stage1"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/instruction1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Meet Dyno, your new pet!"
+            android:textColor="#000"
+            android:textSize="17sp"
+            app:fontFamily="@font/poppins_medium"
+            android:layout_marginTop="55dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/instruction2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="You need to feed him 5 apples to help him get to the next stage."
+            android:textColor="#000"
+            android:textSize="13sp"
+            app:fontFamily="@font/poppins"
+            android:lineSpacingExtra="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="30dp"/>
+
+        <Button
+        android:id="@+id/feed"
+        android:text="Feed apple"
+        app:fontFamily="@font/roboto"
+        android:drawableLeft="@drawable/apple"
+        android:textAllCaps="false"
+        android:textSize="17sp"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/feed_button"
+        android:layout_gravity="center"
+        android:paddingLeft="10dip"
+        android:paddingRight="0dip"
+        android:layout_marginTop="50dp"/>
+
+        <Button
+            android:id="@+id/play_again"
+            android:text="Play again"
+            app:fontFamily="@font/roboto"
+            android:drawableLeft="@drawable/video_game"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/play_again_button"
+            android:layout_gravity="center"
+            android:paddingLeft="10dip"
+            android:paddingRight="0dip"
+            android:layout_marginTop="50dp"
+            android:visibility="invisible"/>
+
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loading_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Loading.."
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

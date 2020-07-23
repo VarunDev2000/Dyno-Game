@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/main_bg</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="CongratsPageTheme" parent="AppTheme">
+        <item name="colorPrimaryDark">@color/stage_clr</item>
+    </style>
+
+</resources>
