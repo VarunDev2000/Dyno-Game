@@ -10,8 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Congratulations_screen"
-            android:theme="@style/CongratsPageTheme"></activity>
+        <activity
+            android:name=".SettingsPage"
+            android:theme="@style/CongratsPageTheme"
+        />
+
+        <activity
+            android:name=".SetName"
+            />
+
+        <activity
+            android:name=".Congratulations_screen"
+            android:theme="@style/CongratsPageTheme" />
 
         <activity android:name=".GamePage">
             <intent-filter>

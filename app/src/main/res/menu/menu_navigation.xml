@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:checked="false"
-        android:id="@+id/home"
+        android:id="@+id/set_name"
         android:title="Dyno"
         android:icon="@drawable/ic_change_name"
         />
 
     <item
         android:checked="true"
-        android:id="@+id/device"
+        android:id="@+id/game"
         android:icon="@drawable/ic_game"
         android:title="Game"
         />
 
     <item
         android:checked="false"
-        android:id="@+id/payments"
+        android:id="@+id/settings"
         android:title="Settings"
         android:icon="@drawable/ic_settings"
         />

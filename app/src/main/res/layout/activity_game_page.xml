@@ -109,22 +109,22 @@
                 android:id="@+id/instruction1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:text="Meet Dyno, your new pet!"
                 android:textColor="@color/white"
-                android:textSize="17sp"
-                app:fontFamily="@font/poppins_medium"
-                android:layout_marginTop="55dp"
-                android:layout_marginBottom="20dp"/>
+                android:textSize="16sp"
+                app:fontFamily="@font/poppins_semibold" />
 
             <TextView
                 android:id="@+id/instruction2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="You need to feed him 5 apples to help him get to the next stage."
+                android:text="Help him grow by feeding apples! Surely apple is the noblest of fruits"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:fontFamily="@font/poppins"
                 android:lineSpacingExtra="0dp"
                 android:layout_marginTop="5dp"
@@ -137,7 +137,7 @@
                 android:layout_height="70dp"
                 android:background="@drawable/feed_button"
                 android:layout_gravity="center"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginBottom="85dp"
                 android:scaleType="fitXY"
                 android:visibility="visible" />
@@ -163,9 +163,9 @@
         </LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:id="@+id/bottom_navigation"
             app:itemBackground="@color/white"
             app:itemTextColor="@drawable/selector"
             app:itemIconTint="@drawable/selector"

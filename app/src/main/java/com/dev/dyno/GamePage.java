@@ -1,5 +1,6 @@
 package com.dev.dyno;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -10,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dev.dyno.animation.MyBounceInterpolator;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,8 +31,11 @@ public class GamePage extends AppCompatActivity {
 
     public  static  final  String PREFS_NAME = "LocalStorage";
 
+    private BottomNavigationView bottomNavigationView;
+
     private MediaPlayer BgSong;
     private MediaPlayer AppleBite;
+    private MediaPlayer ClickSound;
 
     private TextView stage;
     private TextView apples_eaten;
@@ -70,6 +76,38 @@ public class GamePage extends AppCompatActivity {
         current_apples_eaten = getCurrent_apples_eaten();
 
 
+        //BottomNav Bar
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        ClickSound = MediaPlayer.create(GamePage.this,R.raw.click_sound);
+        ClickSound.setVolume((float)0.6,(float)0.6);
+
+        bottomNavigationView.setSelectedItemId(R.id.game);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()){
+                    case R.id.set_name:
+                        ClickSound.start();
+                        startActivity(new Intent(getApplicationContext(),SetName.class));
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                        return true;
+
+                    case R.id.game:
+                        return true;
+
+                    case R.id.settings:
+                        ClickSound.start();
+                        startActivity(new Intent(getApplicationContext(),SettingsPage.class));
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                        return true;
+                }
+
+                return false;
+            }
+        });
+
+
 
         //Initialization
         stage.setText("STAGE " + current_stage);
@@ -79,11 +117,12 @@ public class GamePage extends AppCompatActivity {
         int resID = res.getIdentifier(mDrawableName , "drawable", getPackageName());
         Drawable drawable = res.getDrawable(resID );
         dyno_image.setImageDrawable(drawable);
+        instruction1.setText("Meet Dyno " + getDynoName() + ", your new pet!");
         if(current_apples_eaten >= 20){
             stage.setText("STAGE 5");
 
             instruction1.setText("You won!");
-            instruction2.setText("Congratulations! Dyno has grown big and strong with your help.");
+            instruction2.setText("Congratulations! Dyno " + getDynoName() + " has grown big and strong with your help.");
 
             dyno_image.setImageResource(R.drawable.dyno_stage5);
 
@@ -126,7 +165,7 @@ public class GamePage extends AppCompatActivity {
 
                     stage.setText("STAGE 5");
                     instruction1.setText("You won!");
-                    instruction2.setText("Congratulations! Dyno has grown big and strong with your help.");
+                    instruction2.setText("Congratulations! Dyno " + getDynoName() + " has grown big and strong with your help.");
                     dyno_image.setScaleX((float) (x - 0.2));
                     dyno_image.setScaleY((float) (y - 0.2));
                     dyno_image.setImageResource(R.drawable.dyno_stage5);
@@ -230,10 +269,19 @@ public class GamePage extends AppCompatActivity {
         return apples_eaten;
     }
 
+    private String getDynoName(){
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+
+        String name = sharedPreferences.getString("dyno_name","");
+
+        return name;
+    }
+
 
     @Override
     protected void onResume() {
         super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.game);
         BgSong = MediaPlayer.create(GamePage.this,R.raw.bg_music);
         BgSong.start();
     }
