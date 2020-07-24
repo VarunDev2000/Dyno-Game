@@ -6,7 +6,9 @@
     <color name="black">#000</color>
     <color name="white">#FFF</color>
     <color name="main_bg">#FFF</color>
-    <color name="stage_clr">#58CDA2</color>
+    <color name="stage_clr">#3CB371</color>
     <color name="feed_btn_clr">#FFD9D9</color>
     <color name="play_again_btn">#EBD9FF</color>
+    <color name="red">#ff0800</color>
+    <color name="green">#3CB371</color>
 </resources>

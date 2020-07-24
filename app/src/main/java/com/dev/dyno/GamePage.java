@@ -10,10 +10,15 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.dev.dyno.animation.MyBounceInterpolator;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,12 +27,13 @@ public class GamePage extends AppCompatActivity {
     public  static  final  String PREFS_NAME = "LocalStorage";
 
     private MediaPlayer BgSong;
+    private MediaPlayer AppleBite;
 
     private TextView stage;
     private TextView apples_eaten;
     private TextView instruction1;
     private TextView instruction2;
-    private Button feed_button;
+    private ImageButton feed_button;
     private Button play_again_button;
     private ImageView dyno_image;
 
@@ -65,7 +71,7 @@ public class GamePage extends AppCompatActivity {
 
         //Initialization
         stage.setText("STAGE " + current_stage);
-        apples_eaten.setText("Total apples eaten: " + current_apples_eaten);
+        apples_eaten.setText(""+current_apples_eaten);
         Resources res = getResources();
         String mDrawableName = "dyno_stage" + current_stage;
         int resID = res.getIdentifier(mDrawableName , "drawable", getPackageName());
@@ -79,6 +85,7 @@ public class GamePage extends AppCompatActivity {
 
             dyno_image.setImageResource(R.drawable.dyno_stage5);
 
+            feed_button.clearAnimation();
             feed_button.setVisibility(View.GONE);
             play_again_button.setVisibility(View.VISIBLE);
         }
@@ -91,10 +98,20 @@ public class GamePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //Button Effects
+                final Animation feedAnim = AnimationUtils.loadAnimation(GamePage.this, R.anim.bounce);
+                MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+                feedAnim.setInterpolator(interpolator);
+                feed_button.startAnimation(feedAnim);
+
+                //Bite Sound
+                AppleBite = MediaPlayer.create(GamePage.this,R.raw.apple_bite);
+                AppleBite.start();
+
                 current_apples_eaten = current_apples_eaten + 1;
                 saveCurrent_apples_eaten(current_apples_eaten);
 
-                apples_eaten.setText("Total apples eaten: " + current_apples_eaten);
+                apples_eaten.setText(""+current_apples_eaten);
 
                 float x = dyno_image.getScaleX();
                 float y = dyno_image.getScaleY();
@@ -111,6 +128,7 @@ public class GamePage extends AppCompatActivity {
                     dyno_image.setScaleX((float) (x - 0.2));
                     dyno_image.setScaleY((float) (y - 0.2));
                     dyno_image.setImageResource(R.drawable.dyno_stage5);
+                    feed_button.clearAnimation();
                     feed_button.setVisibility(View.GONE);
                     play_again_button.setVisibility(View.VISIBLE);
 
@@ -151,9 +169,11 @@ public class GamePage extends AppCompatActivity {
                 saveCurrent_stage(1);
                 saveCurrent_apples_eaten(0);
 
-                BgSong.stop();
-                BgSong.release();
-                BgSong = null;
+                if(BgSong != null) {
+                    BgSong.stop();
+                    BgSong.release();
+                    BgSong = null;
+                }
 
                 loading_screen.setVisibility(View.VISIBLE);
 

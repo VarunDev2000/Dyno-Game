@@ -15,6 +15,8 @@ public class Congratulations_screen extends AppCompatActivity {
 
     public  static  final  String PREFS_NAME = "LocalStorage";
 
+    private MediaPlayer Applause;
+
     private TextView stage;
     private ImageButton close;
     private int current_stage;
@@ -28,6 +30,10 @@ public class Congratulations_screen extends AppCompatActivity {
 
         setContentView(R.layout.activity_congratulations_screen);
 
+        //Sound Effects
+        Applause = MediaPlayer.create(Congratulations_screen.this,R.raw.applause);
+        Applause.start();
+
 
         stage = findViewById(R.id.stage);
         close = findViewById(R.id.close);
@@ -38,6 +44,12 @@ public class Congratulations_screen extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(Applause != null) {
+                    Applause.stop();
+                    Applause.release();
+                    Applause = null;
+                }
 
                 Intent intent = new Intent(getApplicationContext(),GamePage.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -53,5 +65,16 @@ public class Congratulations_screen extends AppCompatActivity {
         int stage = sharedPreferences.getInt("current_stage",1);
 
         return stage;
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(Applause != null) {
+            Applause.stop();
+            Applause.release();
+            Applause = null;
+        }
     }
 }
