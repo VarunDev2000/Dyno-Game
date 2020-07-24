@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:checked="false"
+        android:id="@+id/home"
+        android:title="Dyno"
+        android:icon="@drawable/ic_change_name"
+        />
+
+    <item
+        android:checked="true"
+        android:id="@+id/device"
+        android:icon="@drawable/ic_game"
+        android:title="Game"
+        />
+
+    <item
+        android:checked="false"
+        android:id="@+id/payments"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings"
+        />
+
+
+</menu>

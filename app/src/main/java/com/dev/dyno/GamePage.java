@@ -1,6 +1,7 @@
 package com.dev.dyno;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dev.dyno.animation.MyBounceInterpolator;
@@ -37,7 +39,7 @@ public class GamePage extends AppCompatActivity {
     private Button play_again_button;
     private ImageView dyno_image;
 
-    private LinearLayout main_layout;
+    private RelativeLayout main_layout;
     private LinearLayout loading_screen;
 
     private int current_stage;
