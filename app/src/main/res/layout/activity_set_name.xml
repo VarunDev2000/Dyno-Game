@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Give dyno a name !"
+                android:text="Change dyno name !"
                 android:textColor="@color/green"
                 android:textSize="20sp" />
 
@@ -127,7 +127,7 @@
             app:menu="@menu/menu_navigation"
             app:labelVisibilityMode="labeled"
             android:layout_alignParentBottom="true"
-
+            android:visibility="visible"
             />
 
     </RelativeLayout>

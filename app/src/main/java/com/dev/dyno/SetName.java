@@ -84,7 +84,7 @@ public class SetName extends AppCompatActivity {
             public void onClick(View v) {
                 if(!name_layout.getEditText().getText().toString().isEmpty()){
                     String dyno_name = "" + name_layout.getEditText().getText().toString();
-                    Log.d("TAG", "onClick: Name -> " + dyno_name);
+                    //Log.d("TAG", "onClick: Name -> " + dyno_name);
 
                     saveDynoName(dyno_name);
 

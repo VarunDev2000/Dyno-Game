@@ -1,6 +1,7 @@
 package com.dev.dyno;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -24,6 +25,8 @@ import android.widget.TextView;
 
 import com.dev.dyno.animation.MyBounceInterpolator;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,7 +36,7 @@ public class GamePage extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
 
-    private MediaPlayer BgSong;
+    private MediaPlayer BgSong = null;
     private MediaPlayer AppleBite;
     private MediaPlayer ClickSound;
 
@@ -59,6 +62,11 @@ public class GamePage extends AppCompatActivity {
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
         setContentView(R.layout.activity_game_page);
+
+        if(getfirstTimeLogin() == 1){
+            Log.d("TAG","ddff");
+            showDialog();
+        }
 
 
         stage = findViewById(R.id.stage);
@@ -236,6 +244,44 @@ public class GamePage extends AppCompatActivity {
     }
 
 
+    private void showDialog(){
+        final AlertDialog.Builder alert = new AlertDialog.Builder(GamePage.this);
+        View mView = getLayoutInflater().inflate(R.layout.custom_dialog,null);
+
+        final TextInputLayout dia_name_layout = (TextInputLayout)mView.findViewById(R.id.dia_name_layout);
+        final TextInputEditText dia_name_text = (TextInputEditText)mView.findViewById(R.id.dia_name_text);
+        final Button dia_okay_btn = (Button) mView.findViewById(R.id.dia_okay_btn);
+
+        alert.setView(mView);
+
+        final AlertDialog alertDialog = alert.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setCancelable(false);
+
+        dia_okay_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!dia_name_text.getText().toString().isEmpty()){
+                    String dyno_name = "" + dia_name_text.getText().toString();
+                    //Log.d("TAG", "onClick: Name -> " + dyno_name);
+
+                    saveDynoName(dyno_name);
+                    setAlreadyLogined();
+
+                    Intent intent = new Intent(getApplicationContext(),GamePage.class);
+                    startActivity(intent);
+                }
+
+                else{
+                    dia_name_layout.setError("Name cannot be empty!");
+                }
+            }
+        });
+
+        alertDialog.show();
+    }
+
+
     private void saveCurrent_stage(int current_stage){
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -269,6 +315,14 @@ public class GamePage extends AppCompatActivity {
         return apples_eaten;
     }
 
+    private void saveDynoName(String name){
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("dyno_name",name);
+        editor.apply();
+    }
+
     private String getDynoName(){
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
 
@@ -277,13 +331,31 @@ public class GamePage extends AppCompatActivity {
         return name;
     }
 
+    private int getfirstTimeLogin(){
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+
+        int login = sharedPreferences.getInt("login",1);
+
+        return login;
+    }
+
+    private void setAlreadyLogined(){
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putInt("login",0);
+        editor.apply();
+    }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         bottomNavigationView.setSelectedItemId(R.id.game);
-        BgSong = MediaPlayer.create(GamePage.this,R.raw.bg_music);
-        BgSong.start();
+        if(getfirstTimeLogin() != 1) {
+            BgSong = MediaPlayer.create(GamePage.this, R.raw.bg_music);
+            BgSong.start();
+        }
     }
 
     @Override
