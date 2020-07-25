@@ -64,8 +64,7 @@ public class GamePage extends AppCompatActivity {
         setContentView(R.layout.activity_game_page);
 
         if(getfirstTimeLogin() == 1){
-            Log.d("TAG","ddff");
-            showDialog();
+            showDialog(true);
         }
 
 
@@ -244,7 +243,7 @@ public class GamePage extends AppCompatActivity {
     }
 
 
-    private void showDialog(){
+    private void showDialog(boolean show){
         final AlertDialog.Builder alert = new AlertDialog.Builder(GamePage.this);
         View mView = getLayoutInflater().inflate(R.layout.custom_dialog,null);
 
@@ -278,7 +277,12 @@ public class GamePage extends AppCompatActivity {
             }
         });
 
-        alertDialog.show();
+        if(show)
+            alertDialog.show();
+        else {
+            alertDialog.dismiss();
+            //Log.d("TAG","dismissed");
+        }
     }
 
 
@@ -347,12 +351,20 @@ public class GamePage extends AppCompatActivity {
         editor.apply();
     }
 
+    private boolean getGameSoundOption(){
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+
+        boolean sound = sharedPreferences.getBoolean("game_sound",true);
+
+        return sound;
+    }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         bottomNavigationView.setSelectedItemId(R.id.game);
-        if(getfirstTimeLogin() != 1) {
+        if(getfirstTimeLogin() != 1 && getGameSoundOption()) {
             BgSong = MediaPlayer.create(GamePage.this, R.raw.bg_music);
             BgSong.start();
         }
@@ -365,6 +377,10 @@ public class GamePage extends AppCompatActivity {
             BgSong.stop();
             BgSong.release();
             BgSong = null;
+        }
+
+        if(getfirstTimeLogin() == 1){
+            showDialog(false);
         }
     }
 

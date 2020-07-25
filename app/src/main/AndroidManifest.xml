@@ -18,7 +18,6 @@
         <activity
             android:name=".SetName"
             />
-
         <activity
             android:name=".Congratulations_screen"
             android:theme="@style/CongratsPageTheme" />
