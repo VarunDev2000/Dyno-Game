@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Change dyno name !"
+                android:text="Give dyno a new name !"
                 android:textColor="@color/green"
                 android:textSize="20sp" />
 

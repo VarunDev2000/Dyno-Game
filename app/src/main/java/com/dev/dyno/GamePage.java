@@ -39,6 +39,7 @@ public class GamePage extends AppCompatActivity {
     private MediaPlayer BgSong = null;
     private MediaPlayer AppleBite;
     private MediaPlayer ClickSound;
+    private MediaPlayer PlayAgainClickSound;
 
     private TextView stage;
     private TextView apples_eaten;
@@ -161,20 +162,16 @@ public class GamePage extends AppCompatActivity {
 
                 apples_eaten.setText(""+current_apples_eaten);
 
-                float x = dyno_image.getScaleX();
-                float y = dyno_image.getScaleY();
-
-                dyno_image.setScaleX((float) (x + 0.01));
-                dyno_image.setScaleY((float) (y + 0.01));
-
+                if(current_apples_eaten < 20) {
+                    final Animation dyno_img_anim = AnimationUtils.loadAnimation(GamePage.this, R.anim.dyno_img_bounce);
+                    dyno_image.startAnimation(dyno_img_anim);
+                }
 
                 if(current_apples_eaten >= 20){
 
                     stage.setText("STAGE 5");
                     instruction1.setText("You won!");
                     instruction2.setText("Congratulations! Dyno " + getDynoName() + " has grown big and strong with your help.");
-                    dyno_image.setScaleX((float) (x - 0.2));
-                    dyno_image.setScaleY((float) (y - 0.2));
                     dyno_image.setImageResource(R.drawable.dyno_stage5);
                     feed_button.clearAnimation();
                     feed_button.setVisibility(View.GONE);
@@ -211,6 +208,10 @@ public class GamePage extends AppCompatActivity {
         play_again_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Button Click Sound
+                PlayAgainClickSound = MediaPlayer.create(GamePage.this, R.raw.play_again_btn_sound);
+                PlayAgainClickSound.start();
 
                 main_layout.setVisibility(View.GONE);
 
